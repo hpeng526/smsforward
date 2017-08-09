@@ -1,6 +1,7 @@
 package com.github.hpeng526.smsforward
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -31,6 +32,10 @@ class MainActivity : AppCompatActivity() {
         val respText = findViewById(R.id.respTextView) as TextView?
         editText!!.setText(phoneNumText, TextView.BufferType.EDITABLE)
         respText!!.setText(consoleText, TextView.BufferType.SPANNABLE)
+
+        var forwardServiceIntent = Intent(this, ForwardService::class.java)
+        forwardServiceIntent.action = ""
+        startService(forwardServiceIntent)
     }
 
     fun clearConsole(v: View) {
@@ -56,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
         val curTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
 
-        val jsonData = "{\"user_id\":100,\"url\":\"http://z.cn\",\"data\":{\"first\":{\"value\":\"短信通知\",\"color\":\"#173177\"},\"send\":{\"value\":\"来自$phone\",\"color\":\"#173177\"},\"text\":{\"$msg\":\"Text\",\"color\":\"#173177\"},\"time\":{\"value\":\"$curTime\",\"color\":\"#173177\"}}}"
+        val jsonData = "{\"user_id\":100,\"url\":\"http://z.cn\",\"data\":{\"first\":{\"value\":\"短信通知\",\"color\":\"#173177\"},\"send\":{\"value\":\"来自$phone\",\"color\":\"#173177\"},\"text\":{\"value\":\"$msg\",\"color\":\"#173177\"},\"time\":{\"value\":\"$curTime\",\"color\":\"#173177\"}}}"
 
         val respText = findViewById(R.id.respTextView) as TextView?
         respText!!.setText(respText!!.text.toString() + "\n" + jsonData, TextView.BufferType.SPANNABLE)
