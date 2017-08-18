@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         respText!!.setText(consoleText, TextView.BufferType.SPANNABLE)
 
         var forwardServiceIntent = Intent(this, ForwardService::class.java)
-        forwardServiceIntent.action = ""
+        forwardServiceIntent.action = Const.START_ACTION
         startService(forwardServiceIntent)
     }
 
