@@ -33,6 +33,18 @@ class ForwardService : Service() {
         super.onDestroy()
     }
 
+    /**
+     * if you are using AOSP or Google android system, you will need this anyway.
+     * @see https://code.google.com/p/android/issues/detail?id=53313
+     */
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        // start main activity to prevent kill
+        val intent = Intent(this, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        super.onTaskRemoved(rootIntent)
+    }
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent?.action == Const.START_ACTION) {
 
