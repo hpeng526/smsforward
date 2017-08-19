@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".ForwardService" />
+        <service android:name=".ForwardService"
+            android:process=":background"/>
     </application>
 
 </manifest>
