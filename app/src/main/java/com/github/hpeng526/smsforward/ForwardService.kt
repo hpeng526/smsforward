@@ -11,10 +11,6 @@ import android.graphics.BitmapFactory
 import android.graphics.Bitmap
 
 
-
-
-
-
 class ForwardService : Service() {
 
     val receiver = SMSReceiver()
@@ -24,6 +20,7 @@ class ForwardService : Service() {
     }
 
     override fun onCreate() {
+        Log.d(this.javaClass.name, "ForwardService create")
         super.onCreate()
         val filter = IntentFilter()
         filter.addAction("android.provider.Telephony.SMS_RECEIVED")
@@ -31,6 +28,7 @@ class ForwardService : Service() {
     }
 
     override fun onDestroy() {
+        Log.d(this.javaClass.name, "ForwardService destroy")
         unregisterReceiver(receiver)
         super.onDestroy()
     }
@@ -57,7 +55,7 @@ class ForwardService : Service() {
                     .setContentIntent(pendingIntent)
                     .build()
 
-            startForeground(101, notification)
+            startForeground(-1982, notification)
         } else if (intent?.action == Const.STOP_ACTION) {
             Log.d("ForwardService", "Received Stop Foreground Intent")
             stopForeground(true)

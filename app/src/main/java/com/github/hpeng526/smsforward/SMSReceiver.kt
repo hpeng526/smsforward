@@ -17,7 +17,7 @@ class SMSReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
 
-        val action = intent!!.action
+        val action = intent?.action
 
         if (action == Telephony.Sms.Intents.SMS_RECEIVED_ACTION) {
             val smsMsg = Telephony.Sms.Intents.getMessagesFromIntent(intent)
@@ -34,7 +34,7 @@ class SMSReceiver : BroadcastReceiver() {
 
                 val jsonData = "{\"user_id\":100,\"url\":\"http://z.cn\",\"data\":{\"first\":{\"value\":\"短信通知\",\"color\":\"#173177\"},\"send\":{\"value\":\"来自: $phone\",\"color\":\"#173177\"},\"text\":{\"value\":\"$message\",\"color\":\"#173177\"},\"time\":{\"value\":\"$curTime\",\"color\":\"#173177\"}}}"
 
-                Log.d("smsRec", jsonData)
+                Log.d(this.javaClass.name, jsonData)
 
                 postJson(Const.GATEWAY_URL, jsonData, object : Callback {
 
@@ -44,15 +44,15 @@ class SMSReceiver : BroadcastReceiver() {
 
                     override fun onFailure(call: Call, e: IOException) {
                         e.printStackTrace()
-                        Log.e("smslog", e.message)
+                        Log.e(this.javaClass.name, e.message)
                         console = console + "\nerror: " + e.message
                         editor.putString("console", console)
                         editor.apply()
                     }
 
                     override fun onResponse(call: Call, response: Response) {
-                        var respString = response.body()?.string().toString()
-                        Log.d("smslog", respString)
+                        val respString = response.body()?.string().toString()
+                        Log.d(this.javaClass.name, respString)
                         console = console + "\nresp: " + respString
                         editor.putString("console", console)
                         editor.apply()
