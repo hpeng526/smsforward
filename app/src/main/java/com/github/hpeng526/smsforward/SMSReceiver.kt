@@ -23,10 +23,10 @@ class SMSReceiver : BroadcastReceiver() {
         if (action == Telephony.Sms.Intents.SMS_RECEIVED_ACTION) {
             val smsMsg = Telephony.Sms.Intents.getMessagesFromIntent(intent)
 
-            smsMsg.forEach({ sms ->
+            smsMsg.groupBy { it.originatingAddress }.forEach {
+                val messageBody = it.value.map { it.messageBody }.reduce { acc, s -> "$acc$s".replace("\n", "\\n").replace("\r", "\\r") }
 
-                val messageBody = sms.messageBody.trim().replace("\n", "\\n")
-                val address = sms.originatingAddress
+                val address = it.key
                 val message = "[$address] $messageBody"
 
                 val phone = context!!.getSharedPreferences("data", Context.MODE_PRIVATE).getString("phone", "")
@@ -60,7 +60,7 @@ class SMSReceiver : BroadcastReceiver() {
                         response.close()
                     }
                 })
-            })
+            }
 
         }
     }
