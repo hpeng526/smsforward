@@ -30,9 +30,9 @@ class MainActivity : AppCompatActivity() {
         editText!!.setText(phoneNumText, TextView.BufferType.EDITABLE)
         respText!!.setText(consoleText, TextView.BufferType.SPANNABLE)
 
-        val forwardServiceIntent = Intent(this, ForwardService::class.java)
-        forwardServiceIntent.action = Const.START_ACTION
-        startService(forwardServiceIntent)
+        // 把守护进程开起来
+        val backgroundServiceIntent = Intent(this, BackgroundService::class.java)
+        startService(backgroundServiceIntent)
     }
 
     override fun onDestroy() {

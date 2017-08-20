@@ -19,8 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name=".ForwardService"/>
 
-        <service android:name=".ForwardService" />
+        <!--background-->
+        <service android:name=".BackgroundService"
+            android:process=":background"/>
     </application>
 
 </manifest>
