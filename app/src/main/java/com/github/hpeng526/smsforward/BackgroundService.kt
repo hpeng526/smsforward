@@ -18,8 +18,8 @@ import android.util.Log
  * 后台守护进程Service，当前台 ForwardService 被销毁的时候再把它拉起来
  */
 class BackgroundService : Service() {
-    override fun onBind(p0: Intent?): IBinder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onBind(p0: Intent?): IBinder? {
+        return null
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -46,7 +46,7 @@ class BackgroundService : Service() {
     }
 
     fun raiseForeground() {
-        var intent = Intent(this, ForwardService::class.java)
+        val intent = Intent(this, ForwardService::class.java)
         bindService(intent,object : ServiceConnection {
             override fun onServiceDisconnected(p0: ComponentName?) {
                 raiseForeground()

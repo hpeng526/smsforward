@@ -23,7 +23,7 @@ class ForwardService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d("ForwardService", "start")
+        Log.d(this.javaClass.name, "start")
         return START_STICKY
     }
 

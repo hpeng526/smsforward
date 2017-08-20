@@ -38,9 +38,6 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         Log.d(this.javaClass.name, "MainActivity destroy")
         super.onDestroy()
-        val forwardServiceIntent = Intent(this, ForwardService::class.java)
-        forwardServiceIntent.action = Const.START_ACTION
-        startService(forwardServiceIntent)
     }
 
     fun clearConsole(v: View) {

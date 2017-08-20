@@ -18,13 +18,14 @@ class SMSReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
 
         val action = intent?.action
+        Log.d(this.javaClass.name, context?.toString())
 
         if (action == Telephony.Sms.Intents.SMS_RECEIVED_ACTION) {
             val smsMsg = Telephony.Sms.Intents.getMessagesFromIntent(intent)
 
             smsMsg.forEach({ sms ->
 
-                val messageBody = sms.messageBody
+                val messageBody = sms.messageBody.trim().replace("\n", "\\n")
                 val address = sms.originatingAddress
                 val message = "[$address] $messageBody"
 
